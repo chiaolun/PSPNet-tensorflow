@@ -1,5 +1,5 @@
 """
-This code is based on DrSleep's framework: https://github.com/DrSleep/tensorflow-deeplab-resnet 
+This code is based on DrSleep's framework: https://github.com/DrSleep/tensorflow-deeplab-resnet
 """
 
 from __future__ import print_function
@@ -147,8 +147,12 @@ def main():
 
     # Predictions: ignoring all predictions with labels greater or equal than n_classes
     raw_prediction = tf.reshape(raw_output, [-1, args.num_classes])
-    label_proc = prepare_label(label_batch, tf.stack(raw_output.get_shape(
-    )[1:3]), num_classes=args.num_classes, one_hot=False)  # [batch_size, h, w]
+    label_proc = prepare_label(
+        label_batch,
+        tf.stack(raw_output.get_shape()[1:3]),
+        num_classes=args.num_classes,
+        one_hot=False
+    )  # [batch_size, h, w]
     raw_gt = tf.reshape(label_proc, [-1, ])
     indices = tf.squeeze(
         tf.where(tf.less_equal(raw_gt, args.num_classes - 1)), 1)
